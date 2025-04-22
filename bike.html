@@ -1,0 +1,202 @@
+
+<head>
+    <title>Bike Selection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+        .bike-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            width: 300px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            cursor: pointer; /* Change cursor to pointer */
+        }
+        .bike-card:hover {
+            transform: translateY(-10px);
+        }
+        .bike-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .bike-card .details {
+            padding: 15px;
+        }
+        .bike-card .details h3 {
+            font-size: 1.2em;
+            margin: 0;
+        }
+        .bike-card .details p {
+            font-size: 1em;
+            color: #555;
+        }
+        .bike-card .details .tags {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #777;
+        }
+        .bike-card .details .tags span {
+            margin-right: 10px;
+        }
+        .bike-card .actions {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-top: 1px solid #ddd;
+        }
+        .bike-card .actions button {
+            padding: 10px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .bike-card .actions button:hover {
+            background-color: #2980b9;
+        }
+        .search-bar {
+            width: 80%;
+            padding: 10px;
+            margin: 20px auto;
+            border-radius: 5px;
+            border: 2px solid #ccc;
+            font-size: 1em;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <input class="search-bar" type="text" id="search" placeholder="Search for bikes..." oninput="filterBikes()">
+
+    <div class="container" id="bikeContainer">
+        <!-- Bike cards will be dynamically inserted here -->
+    </div>
+
+    <script>
+        const bikes = [
+            {
+                id: 1,
+                name: "Yamaha R15",
+                image: "https://imgs.search.brave.com/l-zoywSlPi4haNKr-vpQuFYEO0m8OgbJqJun-2g12NY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/YmlrZWRla2hvLmNv/bS9wcm9jZXNzZWRp/bWFnZXMveWFtYWhh/L3IxNS12NC9zb3Vy/Y2UvcjE1LXY0Njdm/N2EyMjAwOGQ5ZC5q/cGc_aW13aWR0aD04/ODA",
+                specs: "155cc | 6-speed | ₹1.82L",
+                tags: ["#Sport", "#Yamaha", "#2025"]
+            },
+            {
+                id: 2,
+                name: "KTM Duke 200",
+                image: "https://imgs.search.brave.com/NG1cRqfj6r_W0ZxF2Eg0KcVgN2asAhlAtgTG1VsVVwY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWdj/ZG4uemlnd2hlZWxz/LnBoL2xhcmdlL2dh/bGxlcnkvY29sb3Iv/NzUvOTkwL2t0bS1k/dWtlLTIwMC1jb2xv/ci0yMzgwODcuanBn",
+                specs: "199cc | 6-speed | ₹1.92L",
+                tags: ["#Street", "#KTM", "#Performance"]
+            },
+            {
+                id: 3,
+                name: "Bajaj Pulsar NS200",
+                image: "https://imgs.search.brave.com/te1Wu0nMTzxvAKmJtHRXIqS3jifOzxB8GKrSB9fdUtU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWdk/LmFlcGxjZG4uY29t/LzEwNTZ4NTk0L24v/Y3cvZWMvNTgwMjUv/cHVsc2FyLW5zLXJp/Z2h0LXNpZGUtdmll/dy05LnBuZz9pc2ln/PTAmcT04MCZ3bT0z",
+                specs: "199cc | 6-speed | ₹1.49L",
+                tags: ["#Value", "#Aggressive", "#Pulsar"]
+            },
+            {
+                id: 4,
+                name: "Royal Enfield Classic 350",
+                image: "https://imgd.aeplcdn.com/370x208/bw/models/royalenfield-classic-350.jpg",
+                specs: "349cc | 5-speed | ₹1.93L",
+                tags: ["#Cruiser", "#Retro", "#Enfield"]
+            },
+            {
+                id: 5,
+                name: "TVS Apache RTR 160",
+                image: "https://imgs.search.brave.com/9-ggWsEnBuz_jbVc6QvhG6Z8wIHsyTDsQfY-aE8Mkj0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWdk/LmFlcGxjZG4uY29t/LzEwNTZ4NTk0L24v/Y3cvZWMvOTc1NDkv/YXBhY2hlLXJ0ci0x/NjAtNHYtcmlnaHQt/ZnJvbnQtdGhyZWUt/cXVhcnRlci0yLmpw/ZWc_aXNpZz0wJnE9/ODAmd209Mw",
+                specs: "159cc | 5-speed | ₹1.24L",
+                tags: ["#Street", "#TVS", "#Apache"]
+            },
+            {
+                id: 6,
+                name: "Hero Xtreme 160R",
+                image: "https://imgs.search.brave.com/RDlc2i3jF4etr-494p5cfUokKmIQDWJ6AjoknYGSrMg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWdk/LmFlcGxjZG4uY29t/LzY2NHgzNzQvbi9j/dy9lYy8xMjcxMjcv/eHRyZW1lLXJpZ2h0/LWZyb250LXRocmVl/LXF1YXJ0ZXItNi5w/bmc_aXNpZz0wJnE9/ODA",
+                specs: "163cc | 5-speed | ₹1.20L",
+                tags: ["#Hero", "#Commuter", "#160cc"]
+            },
+            {
+                id: 7,
+                name: "Suzuki Gixxer SF",
+                image: "https://imgs.search.brave.com/rT9Kli8L3j54LdtQ_fIxRKB9xSQ88zIBloNSlihGmZs/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWdk/LmFlcGxjZG4uY29t/LzEwNTZ4NTk0L24v/eGZlOGhmYl8xODE3/NDM1LmpwZz9xPTgw",
+                specs: "155cc | 5-speed | ₹1.36L",
+                tags: ["#Fairing", "#Sport", "#Gixxer"]
+            },
+            {
+                id: 8,
+                name: "Honda Hornet 2.0",
+                image: "https://imgs.search.brave.com/WNbjoA5MC3jhryiPIrVMFbpIZqt1fSqNNaH8PhCM-Qw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9hdXRv/LmhpbmR1c3RhbnRp/bWVzLmNvbS9fbmV4/dC9pbWFnZT91cmw9/aHR0cHM6Ly9hdXRv/LmhpbmR1c3RhbnRp/bWVzLmNvbS9jbXMt/aW1hZ2VzL2hvbmRh/X2hvcm5ldC0yLTAv/aW1hZ2VzL2V4dGVy/aW9yX2hvbmRhLWhv/cm5ldC0yMF9mcm9u/dC1yaWdodC12aWV3/XzkzMHg2MjAlMjAt/JTIwQ29weS5qcGcm/dz0zODQwJnE9NzU",
+                specs: "184cc | 5-speed | ₹1.39L",
+                tags: ["#Honda", "#Naked", "#Hornet"]
+            },
+            {
+                id: 9,
+                name: "Bajaj Dominar 400",
+                image: "https://imgs.search.brave.com/i149A3hmiBCaHZdlR6klarvVm_Rqn8L1hfpEaR4BVgE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWdk/LmFlcGxjZG4uY29t/LzEwNTZ4NTk0L24v/Y3cvZWMvMTE0NDIz/L2RvbWluYXItNDAw/LXJpZ2h0LXNpZGUt/dmlldy0yLnBuZz9p/c2lnPTAmcT04MCZ3/bT0z",
+                specs: "373cc | 6-speed | ₹2.30L",
+                tags: ["#Touring", "#Power", "#Dominar"]
+            },
+            {
+                id: 10,
+                name: "Kawasaki Ninja 300",
+                image: "https://imgs.search.brave.com/165-4XWKtbQH6QfD9ER30Kfv324vumkEB0unB-3qxS0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/a2F3YXNha2ktaW5k/aWEuY29tL2NvbnRl/bnQvZGFtL3Byb2R1/Y3RzL3BpbS9zdHVk/aW8vUmVzb3VyY2Vf/MzEyODIyXzI0RVgz/MDBFXzMxOUdOMURS/RjAwRF9BLmpwZw",
+                specs: "296cc | 6-speed | ₹3.43L",
+                tags: ["#SuperSport", "#Ninja", "#Kawasaki"]
+            }
+        ];
+
+        const bikeContainer = document.getElementById("bikeContainer");
+
+        function displayBikes(bikeList) {
+            bikeContainer.innerHTML = '';
+            bikeList.forEach(bike => {
+                const bikeCard = document.createElement("div");
+                bikeCard.classList.add("bike-card");
+                bikeCard.onclick = () => {
+                    window.location.href = `${bike.name.replace(/\s+/g, '').toLowerCase()}.html`;
+                };
+
+                bikeCard.innerHTML = `
+                    <img src="${bike.image}" alt="${bike.name}">
+                    <div class="details">
+                        <h3>${bike.name}</h3>
+                        <p>${bike.specs}</p>
+                        <div class="tags">
+                            ${bike.tags.map(tag => `<span>${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+
+                bikeContainer.appendChild(bikeCard);
+            });
+        }
+
+        function filterBikes() {
+            const searchInput = document.getElementById("search").value.toLowerCase();
+            const filteredBikes = bikes.filter(bike => bike.name.toLowerCase().includes(searchInput));
+            displayBikes(filteredBikes);
+        }
+
+        displayBikes(bikes);
+    </script>
+
+</body>
+</html>

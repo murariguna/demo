@@ -1,0 +1,33 @@
+
+<head>
+    <title>Authentication Verification</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body style="background-image: url('https://t3.ftcdn.net/jpg/06/03/11/94/240_F_603119494_ZacBYSIZ5KmHSKZxfT6jeU25CAhviCK9.jpg'); background-size: cover; background-repeat: no-repeat;">
+    <div class="verify-container" style="background: rgba(0, 0, 0, 0.7); padding: 20px; border-radius: 10px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);">
+        <h2  style="color: white;">Authentication Verification</h2>
+        <p style="color: white;">Please enter the verification code sent to your email:</p>
+        <form id="verifyForm">
+            <div class="input-group">
+                <label for="verificationCode"  style="color: white;">Verification Code</label>
+                <input type="text" id="verificationCode" name="verificationCode" required>
+            </div>
+            <button type="submit"  style="color: white;">Verify</button>
+            <p class="error-message" id="error-message"></p>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('verifyForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const verificationCode = document.getElementById('verificationCode').value;
+            const errorMessage = document.getElementById('error-message');
+            if (verificationCode === '123456') {
+                window.location.href = 'welcome.html';
+            } else {
+                errorMessage.textContent = 'Invalid verification code';
+            }
+        });
+    </script>
+</body>

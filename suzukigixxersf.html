@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suzuki Gixxer SF - Bike Info</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to bottom right, #e0e0e0, #ffffff);
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        .container:hover {
+            transform: scale(1.02);
+        }
+        .header {
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+        .header img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            filter: brightness(0.7);
+        }
+        .header h1 {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3em;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+        .content {
+            padding: 30px;
+        }
+        .content h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .content p {
+            font-size: 1.1em;
+            color: #555;
+            line-height: 1.6;
+        }
+        .specs {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .specs h3 {
+            margin: 0;
+            font-size: 1.5em;
+            color: #3498db;
+        }
+        .specs p {
+            margin: 5px 0;
+            font-size: 1em;
+        }
+        .buy-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #e74c3c;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.5em;
+            margin-top: 20px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .buy-button:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #3498db;
+            font-size: 1.2em;
+            transition: color 0.3s;
+        }
+        .back-button:hover {
+            color: #2980b9;
+        }
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            .content h2 {
+                font-size: 1.5em;
+            }
+            .buy-button {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <img src="https://imgs.search.brave.com/rT9Kli8L3j54LdtQ_fIxRKB9xSQ88zIBloNSlihGmZs/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWdk/LmFlcGxjZG4uY29t/LzEwNTZ4NTk0L24v/eGZlOGhmYl8xODE3/NDM1LmpwZz9xPTgw" alt="Suzuki Gixxer SF">
+            <h1>Suzuki Gixxer SF</h1>
+        </div>
+        <div class="content">
+            <h2>About the Bike</h2>
+            <p>The Suzuki Gixxer SF is a fully faired motorcycle that combines sporty performance with comfort. It is designed for riders who seek a thrilling experience on the road.</p>
+            
+            <div class="specs">
+                <h3>Specifications</h3>
+                <p><strong>Engine:</strong> 155cc</p>
+                <p><strong>Power:</strong> 13.6 PS @ 8,000 rpm</p>
+                <p><strong>Torque:</strong> 14 Nm @ 6,000 rpm</p>
+                <p><strong>Transmission:</strong> 5-speed</p>
+                <p><strong>Price:</strong> ₹1.36L</p>
+            </div>
+
+            <a href="https://www.suzukimotorcycle.co.in/product-details/gixxer-sf" class="buy-button">Buy Now</a>
+            <a href="index.html" class="back-button">Back to Bike Selection</a>
+        </div>
+    </div>
+
+</body>
+</html>

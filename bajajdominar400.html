@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bajaj Dominar 400 - Bike Info</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(to bottom right, #e0e0e0, #ffffff);
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 900px;
+      margin: 50px auto;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+    .container:hover {
+      transform: scale(1.02);
+    }
+    .header {
+      position: relative;
+      text-align: center;
+      color: white;
+    }
+    .header img {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+      filter: brightness(0.7);
+    }
+    .header h1 {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 3em;
+      margin: 0;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    }
+    .content {
+      padding: 30px;
+    }
+    .content h2 {
+      font-size: 2em;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    .content p {
+      font-size: 1.1em;
+      color: #555;
+      line-height: 1.6;
+    }
+    .specs {
+      margin: 20px 0;
+      padding: 15px;
+      background-color: #f9f9f9;
+      border-radius: 5px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .specs h3 {
+      margin: 0;
+      font-size: 1.5em;
+      color: #3498db;
+    }
+    .specs p {
+      margin: 5px 0;
+      font-size: 1em;
+    }
+
+    /* Modified Buy Button Styles */
+    .buy-button {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      background-color: #28a745; /* changed from red to green */
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 1.5em;
+      font-weight: bold;
+      margin-top: 20px;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+    .buy-button:hover {
+      background-color: #218838;
+      transform: translateY(-2px);
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #3498db;
+      font-size: 1.2em;
+      transition: color 0.3s;
+    }
+    .back-button:hover {
+      color: #2980b9;
+    }
+
+    @media (max-width: 600px) {
+      .header h1 {
+        font-size: 2em;
+      }
+      .content h2 {
+        font-size: 1.5em;
+      }
+      .buy-button {
+        font-size: 1.2em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header">
+      <img src="https://imgs.search.brave.com/i149A3hmiBCaHZdlR6klarvVm_Rqn8L1hfpEaR4BVgE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWdk/LmFlcGxjZG4uY29t/LzEwNTZ4NTk0L24v/Y3cvZWMvMTE0NDIz/L2RvbWluYXItNDAw/LXJpZ2h0LXNpZGUt/dmlldy0yLnBuZz9p/c2lnPTAmcT04MCZ3/bT0z" alt="Bajaj Dominar 400">
+      <h1>Bajaj Dominar 400</h1>
+    </div>
+    <div class="content">
+      <h2>About the Bike</h2>
+      <p>The Bajaj Dominar 400 is a powerful touring motorcycle that offers a perfect blend of performance and comfort. It is designed for long rides and is equipped with advanced features for a smooth experience.</p>
+
+      <div class="specs">
+        <h3>Specifications</h3>
+        <p><strong>Engine:</strong> 373cc</p>
+        <p><strong>Power:</strong> 40 PS @ 8,800 rpm</p>
+        <p><strong>Torque:</strong> 35 Nm @ 6,500 rpm</p>
+        <p><strong>Transmission:</strong> 6-speed</p>
+        <p><strong>Price:</strong> ₹2.30L</p>
+      </div>
+
+      <a href="https://www.bajajauto.com/bikes/dominar/dominar-400" class="buy-button">Buy Now</a>
+      <a href="index.html" class="back-button">Back to Bike Selection</a>
+    </div>
+  </div>
+
+</body>
+</html>

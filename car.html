@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Car Selection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+        .car-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            width: 300px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            cursor: pointer; /* Change cursor to pointer */
+        }
+        .car-card:hover {
+            transform: translateY(-10px);
+        }
+        .car-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .car-card .details {
+            padding: 15px;
+        }
+        .car-card .details h3 {
+            font-size: 1.2em;
+            margin: 0;
+        }
+        .car-card .details p {
+            font-size: 1em;
+            color: #555;
+        }
+        .car-card .details .tags {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #777;
+        }
+        .car-card .details .tags span {
+            margin-right: 10px;
+        }
+        .car-card .actions {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-top: 1px solid #ddd;
+        }
+        .car-card .actions button {
+            padding: 10px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .car-card .actions button:hover {
+            background-color: #2980b9;
+        }
+        .search-bar {
+            width: 80%;
+            padding: 10px;
+            margin: 20px auto;
+            border-radius: 5px;
+            border: 2px solid #ccc;
+            font-size: 1em;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <input class="search-bar" type="text" id="search" placeholder="Search for cars..." oninput="filterCars()">
+
+    <div class="container" id="carContainer">
+        <!-- Car cards will be dynamically inserted here -->
+    </div>
+
+    <script>
+        const cars = [
+            {
+                id: 1,
+                name: "Toyota Camry",
+                image: "https://imgs.search.brave.com/tlH8TsU1UMt8pvK48uVD-jvu5q9VBDVCVVM4mg5AW0g/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy8yMDI1/LXRveW90YS1jYW1y/eS14c2UtYXdkLTEy/My02Njk5M2NjOTRj/YzQwLmpwZz9jcm9w/PTAuNTgweHc6MC40/ODl4aDswLjEzN3h3/LDAuMzk3eGgmcmVz/aXplPTEyMDA6Kg",
+                specs: "2.5L | 203 HP | $25,000",
+                tags: ["#Sedan", "#Toyota", "#2023"]
+            },
+            {
+                id: 2,
+                name: "Honda Accord",
+                image: "https://imgs.search.brave.com/_XDL0Lu0IZqLZiOssm0mCJgOoaOoUShSXuT7aNiAAug/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9kYi1v/ZW1zLnMzLmFtYXpv/bmF3cy5jb20vaG9u/ZGEvb3ZlcnZpZXdz/LzIwMjAvYWNjb3Jk/LzIwLWFjY29yZC1o/ZXJvLW1vYmlsZS5q/cGc",
+                specs: "1.5L | 192 HP | $24,000",
+                tags: ["#Sedan", "#Honda", "#2023"]
+            },
+            {
+                id: 3,
+                name: "Ford Mustang",
+                image: "https://imgs.search.brave.com/liIIjVmzpKiDeUZ_Re2RsIq0Iel2l_B4T3lAPYPsnT0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/Y25ldC5jb20vYS9p/bWcvcmVzaXplLzVh/OTI5M2NiMDkzNDZh/NTllMThhMTQ1NjU4/Mjg2NDJhYTI5MjJk/MWMvaHViLzIwMTMv/MTIvMDIvM2M1OWRm/NTktNjc4OC0xMWUz/LTg0NmItMTRmZWI1/Y2E5ODYxLzA4XzE5/NjdfRm9yZF9NdXN0/YW5nX01hY2hfMV9j/b25jZXB0X2Nhcl9u/ZWdfQ040ODAzLTc2/LmpwZz9hdXRvPXdl/YnAmd2lkdGg9MTIw/MA",
+                specs: "5.0L V8 | 450 HP | $43,000",
+                tags: ["#Coupe", "#Ford", "#2023"]
+            },
+            {
+                id: 4,
+                name: "Chevrolet Camaro",
+                image: "https://imgs.search.brave.com/_aYc4MkGnX4rRSXS7Jjc3fwov_fc4v-LsedOxOypjBk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMxLmhvdGNhcnNp/bWFnZXMuY29tL3dv/cmRwcmVzcy93cC1j/b250ZW50L3VwbG9h/ZHMvMjAyMS8wOC9j/aGV2eS1jYW1hcm8t/cmVzdG9tb2QuanBn",
+                specs: "2.0L Turbo | 275 HP | $25,000",
+                tags: ["#Coupe", "#Chevrolet", "#2023"]
+            },
+            {
+                id: 5,
+                name: "Tesla Model 3",
+                image: "https://imgs.search.brave.com/SW7pAZpHagd6nmcGFiZEcxHMYnG5LsZAe33fcl51z7s/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/dGVzbGFyYXRpLmNv/bS93cC1jb250ZW50/L3VwbG9hZHMvMjAy/NC8xMC9UZXNsYS1N/b2RlbC0zLUxSLVJX/RC1sYXVuY2hlcy1p/bi10aGUtVUstLXNj/YWxlZC5qcGc",
+                specs: "Electric | 283 HP | $39,000",
+                tags: ["#Electric", "#Tesla", "#2023"]
+            },
+            {
+                id: 6,
+                name: "BMW 3 Series",
+                image: "https://imgs.search.brave.com/ln0PSqnKPuRvlPxGc0tQ4NdCZg0dvHMGFk00Kuf0poI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9wcmV2/aWV3LnJlZGQuaXQv/cHc4MG5wdjZ2bGMy/MS5qcGc_d2lkdGg9/NjQwJmNyb3A9c21h/cnQmYXV0bz13ZWJw/JnM9NTQyZjc4YWNh/ZGJiM2MxMjVmOWYw/OTkwZGZkMjdmNzJh/MmNiY2FiNg",
+                specs: "2.0L | 255 HP | $41,000",
+                tags: ["#Luxury", "#BMW", "#2023"]
+            },
+            {
+                id: 7,
+                name: "Audi A4",
+                image: "https://imgs.search.brave.com/5CNssb3aiu2TcKe5LteHOTwDVeuFsf2xL81Mh2ypxF8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9waWN0/dXJlcy5kZWFsZXIu/Y29tL2EvYXVkaWZs/ZXRjaGVyam9uZXNh/b2EvMTQxMy9iYjE2/NzMwYmIxN2JkZTcz/MThmODI0ZDI5NjEz/ZGJlNXguanBn",
+                specs: "2.0L | 201 HP | $39,000",
+                tags: ["#Luxury", "#Audi", "#2023"]
+            },
+            {
+                id: 8,
+                name: "Nissan Altima",
+                image: "https://imgs.search.brave.com/-2osJDSVIkrFMO483L-NdlQAzNFD-WDbmznT0DW0rRY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy9h/L2FlLzIwMjNfTmlz/c2FuX0FsdGltYV9T/Vl9pbl9TY2FybGV0/X0VtYmVyX1RpbnRj/b2F0LF9Gcm9udF9M/ZWZ0LF8wOS0xMi0y/MDIzLmpwZw",
+                specs: "2.5L | 188 HP | $25,000",
+                tags: ["#Sedan", "#Nissan", "#2023"]
+            },
+            {
+                id: 9,
+                name: "Hyundai Sonata",
+                image: "https://imgs.search.brave.com/sDU2ZhpgF0izA_EEuxO8FsnPvvubCgltRFiHGAfDNCc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy8yMDI0/LWh5dW5kYWktc29u/YXRhLW4tbGluZS02/NzU3NWJmNTUyOWNj/LmpwZz9jcm9wPTAu/NTcxeHc6MC40ODZ4/aDswLjIxMnh3LDAu/NDE4eGgmcmVzaXpl/PTEyMDA6Kg",
+                specs: "2.5L | 191 HP | $24,000",
+                tags: ["#Sedan", "#Hyundai", "#2023"]
+            },
+            {
+                id: 10,
+                name: "Kia K5",
+                image: "https://imgs.search.brave.com/McQszYqCVvCe3vkkmVKQIIwWEixts2w96Bsa-4DqSo0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy8yMDI1/LWtpYS1rNS0xMDMt/NjVjNTIyNDQ2NTBj/Mi5qcGc_Y3JvcD0w/LjQ4Nnh3OjAuNzI4/eGg7MC4yNjZ4dyww/LjIxMnhoJnJlc2l6/ZT02NDA6Kg",
+                specs: "1.6L Turbo | 180 HP | $25,000",
+                tags: ["#Sedan", "#Kia", "#2023"]
+            }
+        ];
+
+        const carContainer = document.getElementById("carContainer");
+
+        function displayCars(carList) {
+            carContainer.innerHTML = '';
+            carList.forEach(car => {
+                const carCard = document.createElement("div");
+                carCard.classList.add("car-card");
+                carCard.onclick = () => {
+                    window.location.href = `${car.name.replace(/\s+/g, '').toLowerCase()}.html`;
+                };
+
+                carCard.innerHTML = `
+                    <img src="${car.image}" alt="${car.name}">
+                    <div class="details">
+                        <h3>${car.name}</h3>
+                        <p>${car.specs}</p>
+                        <div class="tags">
+                            ${car.tags.map(tag => `<span>${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+
+                carContainer.appendChild(carCard);
+            });
+        }
+
+        function filterCars() {
+            const searchInput = document.getElementById("search").value.toLowerCase();
+            const filteredCars = cars.filter(car => car.name.toLowerCase().includes(searchInput));
+            displayCars(filteredCars);
+        }
+
+        displayCars(cars);
+    </script>
+
+</body>
+</html>

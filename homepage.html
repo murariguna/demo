@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home page</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body, h2, p {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .login-container {
+            background: rgba(0, 0, 0, 0.4); /* More transparent */
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            display: block;
+            text-align: center;
+        }
+
+        h2 {
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 20px;
+        }
+
+        .button-container a {
+            text-decoration: none; /* Remove underline */
+        }
+
+        .button-container button {
+            background: linear-gradient(145deg, #46c24c, #46c24c);
+            color: white;
+            border: none;
+            padding: 20px 120px; /* Larger buttons */
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: background 0.3s ease, transform 0.3s ease;
+            width: 45%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .button-container button:hover {
+            background: linear-gradient(145deg, #475a62, #6c7b8b);
+            transform: scale(1.1);
+        }
+
+        .bike-btn {
+            background-color: #1a75ff; 
+        }
+
+        .car-btn {
+            background-color: #f4a261;
+        }
+
+        .bike-btn:hover {
+            background-color: #155a8a;
+        }
+
+        .car-btn:hover {
+            background-color: #d17a3e;
+        }
+
+        /* Profile logo styles */
+        .profile-link {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 999;
+        }
+
+        .profile-pic {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body style="background-image: url('https://i.pinimg.com/736x/94/82/5e/94825e87fd16876c7edf076e2b2cbdc5.jpg'); background-size: cover; background-repeat: no-repeat;">
+
+    <!-- Profile Picture Link -->
+    <a href="profile.html" class="profile-link">
+        <img src="https://i.pinimg.com/736x/3b/cb/2c/3bcb2c3bbc41c7d96da2dcaaac3f5e44.jpg" alt="Profile" class="profile-pic">
+    </a>
+
+    <div class="login-container">
+        <h2>WELCOME TO OUR PAGE</h2>
+        <form id="loginForm">
+            <h2>PICK YOUR RIDE</h2>
+        </form>
+
+        <!-- Button Container -->
+        <div class="button-container">
+            <a href="bike.html">
+                <button class="bike-btn">Bike</button>
+            </a>
+            <a href="car.html">
+                <button class="car-btn">Car</button>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
